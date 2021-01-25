@@ -2,7 +2,12 @@ package com.po4yka.todoapp.fragment.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -27,12 +32,13 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val mSharedViewModel: SharedViewModel by viewModels()
 
     private var _binding: FragmentListBinding? = null
-    private val binding get()  = _binding!!
+    private val binding get() = _binding!!
 
     private val adapter: ListAdapter by lazy { ListAdapter() }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Data binding
@@ -44,10 +50,13 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         setupRecyclerview()
 
         // Observe LiveData
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
-            mSharedViewModel.checkIfDatabaseEmpty(data)
-            adapter.setData(data)
-        })
+        mToDoViewModel.getAllData.observe(
+            viewLifecycleOwner,
+            { data ->
+                mSharedViewModel.checkIfDatabaseEmpty(data)
+                adapter.setData(data)
+            }
+        )
 
         // Set Menu
         setHasOptionsMenu(true)
@@ -55,7 +64,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         // Hide soft keyboard
         hideKeyboard(requireActivity())
 
-        return binding.root;
+        return binding.root
     }
 
     private fun setupRecyclerview() {
@@ -87,7 +96,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
         val snackbar = Snackbar.make(
-            view, "Deleted '${deletedItem.title}'",
+            view,
+            "Deleted '${deletedItem.title}'",
             Snackbar.LENGTH_LONG
         )
         snackbar.setAction("Undo") {
@@ -108,12 +118,18 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
-            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this, Observer {
-                adapter.setData(it)
-            })
-            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this, Observer {
-                adapter.setData(it)
-            })
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(
+                this,
+                Observer {
+                    adapter.setData(it)
+                }
+            )
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
+                this,
+                Observer {
+                    adapter.setData(it)
+                }
+            )
         }
         return super.onOptionsItemSelected(item)
     }
@@ -129,7 +145,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        builder.setNegativeButton("No") {_, _ ->}
+        builder.setNegativeButton("No") { _, _ -> }
         builder.setTitle("Delete everything?")
         builder.setMessage("Are you sure you want to delete everything?")
         builder.create().show()
@@ -152,11 +168,15 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchThroughDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mToDoViewModel.searchDatabase(searchQuery).observe(this, Observer {
-            list -> list?.let {
-                adapter.setData(it)
+        mToDoViewModel.searchDatabase(searchQuery).observe(
+            this,
+            Observer {
+                list ->
+                list?.let {
+                    adapter.setData(it)
+                }
             }
-        })
+        )
     }
 
     override fun onDestroyView() {

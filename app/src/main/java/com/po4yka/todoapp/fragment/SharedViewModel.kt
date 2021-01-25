@@ -1,7 +1,6 @@
 package com.po4yka.todoapp.fragment
 
 import android.app.Application
-import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
@@ -12,7 +11,7 @@ import com.po4yka.todoapp.R
 import com.po4yka.todoapp.data.models.Priority
 import com.po4yka.todoapp.data.models.ToDoData
 
-class SharedViewModel(application: Application): AndroidViewModel(application) {
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -45,15 +44,19 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun parsePriority(priority: String): Priority {
-        return when(priority) {
-            "High Priority" ->  {
-                Priority.HIGH}
-            "Medium Priority" ->  {
-                Priority.MEDIUM}
-            "Low Priority" ->  {
-                Priority.LOW}
+        return when (priority) {
+            "High Priority" -> {
+                Priority.HIGH
+            }
+            "Medium Priority" -> {
+                Priority.MEDIUM
+            }
+            "Low Priority" -> {
+                Priority.LOW
+            }
             else -> {
-                Priority.LOW}
+                Priority.LOW
+            }
         }
     }
 }

@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply from: "$project.rootDir/spotless.gradle"
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -25,8 +28,12 @@ android {
         }
     }
 
-    buildFeatures {
-        dataBinding = true
+    viewBinding {
+        enabled = true
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     compileOptions {
@@ -37,6 +44,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+}
+
+ktlint {
+    debug = true
 }
 
 dependencies {

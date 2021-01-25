@@ -2,22 +2,23 @@ package com.po4yka.todoapp.fragment.update
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.renderscript.RenderScript
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.whenCreated
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.po4yka.todoapp.R
-import com.po4yka.todoapp.data.models.Priority
 import com.po4yka.todoapp.data.models.ToDoData
 import com.po4yka.todoapp.data.viewmodel.ToDoViewModel
 import com.po4yka.todoapp.databinding.FragmentUpdateBinding
 import com.po4yka.todoapp.fragment.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 class UpdateFragment : Fragment() {
 
@@ -31,7 +32,8 @@ class UpdateFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
@@ -69,7 +71,7 @@ class UpdateFragment : Fragment() {
         val validation = mSharedViewModel.verifyDataFromUser(title, description)
         if (validation) {
             // Update Current Item
-            val updatedItem = ToDoData (
+            val updatedItem = ToDoData(
                 args.currentItem.id,
                 title,
                 mSharedViewModel.parsePriority(getPriority),
@@ -96,7 +98,7 @@ class UpdateFragment : Fragment() {
             ).show()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         }
-        builder.setNegativeButton("No") {_, _ ->}
+        builder.setNegativeButton("No") { _, _ -> }
         builder.setTitle("Delete '${args.currentItem.title}'?")
         builder.setMessage("Are you sure you want to delete '${args.currentItem.title}'?")
         builder.create().show()

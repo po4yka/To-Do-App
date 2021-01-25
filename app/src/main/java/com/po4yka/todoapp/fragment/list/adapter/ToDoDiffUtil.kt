@@ -6,7 +6,7 @@ import com.po4yka.todoapp.data.models.ToDoData
 class ToDoDiffUtil(
     private val oldList: List<ToDoData>,
     private val newList: List<ToDoData>
-): DiffUtil.Callback() {
+) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }
@@ -20,9 +20,8 @@ class ToDoDiffUtil(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
-                && oldList[oldItemPosition].title == newList[newItemPosition].title
-                && oldList[oldItemPosition].description == newList[newItemPosition].description
+        return oldList[oldItemPosition].id == newList[newItemPosition].id &&
+            oldList[oldItemPosition].title == newList[newItemPosition].title &&
+            oldList[oldItemPosition].description == newList[newItemPosition].description
     }
-
 }

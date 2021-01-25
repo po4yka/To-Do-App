@@ -14,5 +14,4 @@ class PriorityConverter {
     fun toPriority(priority: String): Priority {
         return Priority.valueOf(priority)
     }
-
 }

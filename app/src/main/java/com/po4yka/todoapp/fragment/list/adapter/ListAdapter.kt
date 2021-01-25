@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.po4yka.todoapp.data.models.ToDoData
 import com.po4yka.todoapp.databinding.RowLayoutBinding
 
-class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     var dataList = emptyList<ToDoData>()
 
-    class MyViewHolder(private val binding: RowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(toDoData: ToDoData) {
             binding.toDoData = toDoData
@@ -25,7 +25,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
                 return MyViewHolder(binding)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -47,5 +46,4 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         this.dataList = toDoData
         toDoDiffResult.dispatchUpdatesTo(this)
     }
-
 }

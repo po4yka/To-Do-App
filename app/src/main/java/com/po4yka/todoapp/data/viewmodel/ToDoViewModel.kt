@@ -10,7 +10,7 @@ import com.po4yka.todoapp.data.repository.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ToDoViewModel(application: Application): AndroidViewModel(application) {
+class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val toDoDao = ToDoDatabase.getDatabase(application).toDoDao()
     private val repository: ToDoRepository
@@ -54,5 +54,4 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
     fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>> {
         return repository.searchDatabase(searchQuery)
     }
-
 }

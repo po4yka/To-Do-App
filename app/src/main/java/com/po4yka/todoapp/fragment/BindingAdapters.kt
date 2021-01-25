@@ -39,7 +39,7 @@ class BindingAdapters {
         @BindingAdapter("android:parsePriorityToInt")
         @JvmStatic
         fun parsePriorityToInt(view: Spinner, priority: Priority) {
-            when(priority) {
+            when (priority) {
                 Priority.HIGH -> { view.setSelection(0) }
                 Priority.MEDIUM -> { view.setSelection(1) }
                 Priority.LOW -> { view.setSelection(2) }
@@ -64,6 +64,5 @@ class BindingAdapters {
                 view.findNavController().navigate(action)
             }
         }
-
     }
 }
