@@ -20,7 +20,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Build with Gradle
-        run: ./gradlew build --warning-mode=all --stacktrace
+        run: ./gradlew :app:buildRelease --warning-mode=all --stacktrace
 
   linter:
 
@@ -35,4 +35,4 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Build with Gradle
-        run: ./gradlew ktlint ktlintFormat --warning-mode=all --stacktrace
+        run: ./gradlew ktlintCheck --warning-mode=all --stacktrace
