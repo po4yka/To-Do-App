@@ -2,7 +2,7 @@
 buildscript {
 
     ext {
-        kotlin_version = "1.4.21"
+        kotlin_version = "1.4.30"
         nav_version = "2.3.2"
         spotless_version = "5.8.2"
         ktlint_version = "9.4.1"

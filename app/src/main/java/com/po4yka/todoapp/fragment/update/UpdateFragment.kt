@@ -2,12 +2,7 @@ package com.po4yka.todoapp.fragment.update
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +13,6 @@ import com.po4yka.todoapp.data.models.ToDoData
 import com.po4yka.todoapp.data.viewmodel.ToDoViewModel
 import com.po4yka.todoapp.databinding.FragmentUpdateBinding
 import com.po4yka.todoapp.fragment.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_update.*
 
 class UpdateFragment : Fragment() {
 
@@ -35,7 +29,7 @@ class UpdateFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Data binding
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
@@ -64,9 +58,9 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateItem() {
-        val title = current_title_et.text.toString()
-        val description = current_description_et.text.toString()
-        val getPriority = current_priorities_spinner.selectedItem.toString()
+        val title = binding.currentTitleEt.text.toString()
+        val description = binding.currentDescriptionEt.text.toString()
+        val getPriority = binding.currentPrioritiesSpinner.selectedItem.toString()
 
         val validation = mSharedViewModel.verifyDataFromUser(title, description)
         if (validation) {

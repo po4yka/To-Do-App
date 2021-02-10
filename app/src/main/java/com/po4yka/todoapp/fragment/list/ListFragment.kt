@@ -2,17 +2,11 @@ package com.po4yka.todoapp.fragment.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -40,7 +34,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Data binding
         _binding = FragmentListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -120,13 +114,13 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             R.id.menu_delete_all -> confirmRemoval()
             R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(
                 this,
-                Observer {
+                {
                     adapter.setData(it)
                 }
             )
             R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
                 this,
-                Observer {
+                {
                     adapter.setData(it)
                 }
             )
@@ -170,8 +164,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         mToDoViewModel.searchDatabase(searchQuery).observe(
             this,
-            Observer {
-                list ->
+            { list ->
                 list?.let {
                     adapter.setData(it)
                 }
