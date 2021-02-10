@@ -5,6 +5,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply from: "$project.rootDir/spotless.gradle"
 apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: "kotlin-parcelize"
 
 android {
     compileSdkVersion 30
