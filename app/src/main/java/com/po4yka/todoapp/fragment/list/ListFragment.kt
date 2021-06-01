@@ -19,7 +19,6 @@ import com.po4yka.todoapp.fragment.SharedViewModel
 import com.po4yka.todoapp.fragment.list.adapter.ListAdapter
 import com.po4yka.todoapp.utils.hideKeyboard
 import com.po4yka.todoapp.utils.observeOnce
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
@@ -50,6 +49,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             { data ->
                 mSharedViewModel.checkIfDatabaseEmpty(data)
                 adapter.setData(data)
+                binding.recycleView.scheduleLayoutAnimation()
             }
         )
 
@@ -67,9 +67,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         recyclerView.adapter = adapter
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.itemAnimator = SlideInUpAnimator().apply {
-            addDuration = 350
-        }
 
         // Swipe to Delete
         swipeToDelete(recyclerView)

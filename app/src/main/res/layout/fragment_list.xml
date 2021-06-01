@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mSharedViewModel"
             type="com.po4yka.todoapp.fragment.SharedViewModel" />
@@ -15,12 +16,12 @@
         android:layout_height="match_parent"
         tools:context=".fragment.list.ListFragment">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
+            android:layoutAnimation="@anim/recyclerview_anim"
             android:paddingTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
