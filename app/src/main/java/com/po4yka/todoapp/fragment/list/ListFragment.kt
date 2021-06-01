@@ -2,12 +2,7 @@ package com.po4yka.todoapp.fragment.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -23,6 +18,7 @@ import com.po4yka.todoapp.databinding.FragmentListBinding
 import com.po4yka.todoapp.fragment.SharedViewModel
 import com.po4yka.todoapp.fragment.list.adapter.ListAdapter
 import com.po4yka.todoapp.utils.hideKeyboard
+import com.po4yka.todoapp.utils.observeOnce
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -69,7 +65,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun setupRecyclerview() {
         val recyclerView = binding.recycleView
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.itemAnimator = SlideInUpAnimator().apply {
             addDuration = 350
         }
@@ -118,13 +115,13 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
             R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(
-                this,
+                viewLifecycleOwner,
                 {
                     adapter.setData(it)
                 }
             )
             R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
-                this,
+                viewLifecycleOwner,
                 {
                     adapter.setData(it)
                 }
@@ -167,8 +164,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchThroughDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mToDoViewModel.searchDatabase(searchQuery).observe(
-            this,
+        mToDoViewModel.searchDatabase(searchQuery).observeOnce(
+            viewLifecycleOwner,
             { list ->
                 list?.let {
                     adapter.setData(it)
